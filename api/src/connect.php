@@ -1,5 +1,5 @@
 <?php
-//require_once dirname(__FILE__) . "/../config/database.php";
+require_once("Book.php");
 
 $DB_HOST = "localhost";
 $DB_USER = "root";
@@ -11,3 +11,5 @@ if ($conn->connect_error) {
     die("Polaczenie z products_ex nieudane. Blad: " .
     $conn->connect_error);
 } 
+
+Book::SetConnection($conn);

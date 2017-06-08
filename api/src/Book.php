@@ -59,6 +59,15 @@ class Book {
         return false;
     }
     
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'author' => $this->author,
+            'book_desc' => $this->book_desc,
+        ];
+    }
+    
     public function getId() {
         return $this->id;
     }

@@ -45,7 +45,7 @@ class Book implements JsonSerializable {
         return null;
     }
     
-    public function udate(){
+    public function update(){
         $sql = "UPDATE Book SET name='{$this->name}', author='{$this->author}', book_desc='{$this->book_desc}' WHERE id={$this->id}";
         return Book::$conn->query($sql);
     }

@@ -30,7 +30,7 @@
         <div class="form-group">
             <label for="">Author</label>
             <input type="text" class="form-control" name="author" id="author"
-                   placeholder="author">
+                   placeholder="Author">
         </div>
         <div class="form-group">
             <label for="">Title</label>
@@ -42,7 +42,7 @@
             <input type="text" class="form-control" name="description" id="description"
                    placeholder="Description">
         </div>
-        <button type="submit" name="submit" value="addBook" class="btn btn-success">Add book</button>
+        <button type="submit" name="submit" value="addBook" class="btn btn-success" id="btn">Add book</button>
     </form>
 
     </center> 
@@ -63,6 +63,8 @@
                 <div></div>
                 <div></div>
                 <div><p></p></div>
+                
+                
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

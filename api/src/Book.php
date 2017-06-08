@@ -12,39 +12,51 @@ class Book {
         User::$conn = $newConnection;
     }
     
-    public function __construct() {
-        $this->id = -1;
-        $this->name = "";
-        $this->author = "";
-        $this->book_desc = "";
+    public function __construct($newId, $newName, $newAuthor, $newDesc) {
+        $this->id = $newId;
+        $this->name = $newName;
+        $this->author = $newAuthor;
+        $this->book_desc = $newDesc;
     }
     
     public static function loadFromDB($id){
         $sqlStatement = "Select * from Book where id = '$id'";
         $result = Book::$conn->query($sqlStatement);
+        
         if ($result->num_rows == 1) {
+            
             $bookData = $result->fetch_assoc();
             return new Book($bookData['id'], $bookData['name'], $bookData['author'], $bookData['book_desc']);
         }
-        //there is user with this name in db
-        return -1;
+        return NULL;
     }
     
     public static function create($name, $author){
-        $sqlStatement = "Select * from Book where email = '$userMail'";
+        $sqlStatement = "Select * from Book where name = '$name'";
         $result = Book::$conn->query($sqlStatement);
+        
         if ($result->num_rows == 0) {
-            //inserting user to db
             
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
-            $sqlStatement = "INSERT INTO Users(name, email, password, info) values ('', '$userMail', '$hashed_password', '')";
-            if (User::$conn->query($sqlStatement) === TRUE) {
-                //entery was added to DB so we can return new object
-                return new User(User::$conn->insert_id, 'jakies', $userMail, 'glupoty', $hashed_password);
+            $sqlStatement = "INSERT INTO Book(name, author, book_desc) values ('$name', '$author', 'description')";
+            if (Book::$conn->query($sqlStatement) === TRUE) {
+                return new Book(Book::$conn->insert_id, $name, $author, 'description');
             }
-        }
-        //there is user with this name in db
+        } 
         return null;
+    }
+    
+    public function udate(){
+        $sql = "UPDATE Book SET name='{$this->name}', author='{$this->author}', book_desc='{$this->book_desc}' WHERE id={$this->id}";
+        return Book::$conn->query($sql);
+    }
+    
+    public static function deleteFromDB(Book $toDelete){        
+        $sql = "DELETE FROM Book WHERE id=" . $toDelete->getId();
+        
+        if (Book::$conn->query($sql) === TRUE) {
+            return true;
+        }        
+        return false;
     }
     
     public function getId() {

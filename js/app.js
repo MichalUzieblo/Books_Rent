@@ -1,6 +1,7 @@
 $(function() {
     
     var endpoint = "api/books.php";
+    var resetList = $('#reset').clone();
 
     function loadAllBooks() {
         $.get(endpoint, function (json) {
@@ -35,7 +36,7 @@ $(function() {
 
             var newEndpoint = endpoint + "?id=" + bookId;
  
-            $.get(newEndpoint, function (json) { console.log(json);
+            $.get(newEndpoint, function (json) {
                 
                 var book = $.parseJSON(json);
                 
@@ -45,5 +46,23 @@ $(function() {
             });
         });
     }
+    
+    $('#form').submit(function (event) {
+        event.preventDefault();
+        var formData = {
+            'author': $('input[name=author]').val(),
+            'title': $('input[name=title]').val(),
+            'description': $('input[name=description]').val()
+        };
+        
+        $.post(endpoint, formData, function(json) {
+            var data = $.parseJSON(json);
+            if (data.success === true) {
+                $('#books').html(resetList);
+                loadAllBooks();
+            }
+        });
+        
+    });
     
 });

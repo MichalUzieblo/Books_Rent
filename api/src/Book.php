@@ -1,6 +1,6 @@
 <?php
 
-class Book {
+class Book implements JsonSerializable{
     static private $conn;
     
     private $id;

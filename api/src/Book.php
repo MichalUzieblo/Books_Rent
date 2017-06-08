@@ -1,6 +1,6 @@
 <?php
 
-class Book implements JsonSerializable{
+class Book implements JsonSerializable {
     static private $conn;
     
     private $id;
@@ -9,7 +9,7 @@ class Book implements JsonSerializable{
     private $book_desc;
     
     public static function SetConnection($newConnection){
-        User::$conn = $newConnection;
+        Book::$conn = $newConnection;
     }
     
     public function __construct($newId, $newName, $newAuthor, $newDesc) {
